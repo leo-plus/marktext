@@ -7,6 +7,7 @@
 // is mechanically derived from schema.json in a follow-up.
 
 export interface IUserPreferences {
+  diagramPreviewMode?: 'sidebar' | 'bottom'
   autoSave?: boolean
   autoSaveDelay?: number
   titleBarStyle?: 'custom' | 'native'

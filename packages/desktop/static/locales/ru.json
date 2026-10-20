@@ -444,6 +444,7 @@
         "githubAlerts": "Оповещения GitHub",
         "isHtmlEnabled": "Включить рендеринг HTML",
         "softNewlineAsSpace": "Считать мягкие переносы строк пробелами",
+        "diagramPreviewMode": "Режим предпросмотра диаграмм",
         "sequenceTheme": "Тема диаграмм последовательностей",
         "plantumlServer": "URL сервера PlantUML",
         "theme": "Выберите тему, используемую в MarkText",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "Режим предпросмотра диаграмм",
+          "sidebar": "Боковой просмотр (по умолчанию)",
+          "bottom": "Просмотр снизу"
+        },
         "title": "Диаграммы",
         "sequenceTheme": {
           "title": "Тема последовательностей",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "Непредвиденная ошибка проверки орфографии"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "Предпросмотр диаграммы",
+      "canvas": "Прокрутка — масштаб, перетаскивание — перемещение"
+    },
     "export": {
       "error": "Ошибка экспорта",
       "errorExporting": "Ошибка экспорта файла {type}",

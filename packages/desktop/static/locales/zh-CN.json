@@ -445,6 +445,7 @@
         "githubAlerts": "GitHub 提示块",
         "isHtmlEnabled": "启用 HTML 渲染",
         "softNewlineAsSpace": "将软换行符视为空格",
+        "diagramPreviewMode": "图表预览模式",
         "sequenceTheme": "序列图主题",
         "plantumlServer": "PlantUML 服务器 URL",
         "theme": "选择 MarkText 中使用的主题",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "图表预览模式",
+          "sidebar": "侧边预览（默认）",
+          "bottom": "底部预览"
+        },
         "title": "图表",
         "sequenceTheme": {
           "title": "序列图主题",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "意外的拼写检查器错误"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "图表预览",
+      "canvas": "图表预览：滚轮缩放，拖动平移"
+    },
     "insertTable": {
       "title": "插入表格",
       "rows": "行",

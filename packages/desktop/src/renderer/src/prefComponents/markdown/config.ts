@@ -94,3 +94,8 @@ export const getSequenceThemeOptions = (): PrefSelectOption<string>[] => [
     value: 'simple'
   }
 ]
+
+export const getDiagramPreviewModeOptions = (): PrefSelectOption<string>[] => [
+  { label: t('preferences.markdown.diagrams.previewMode.sidebar'), value: 'sidebar' },
+  { label: t('preferences.markdown.diagrams.previewMode.bottom'), value: 'bottom' }
+]

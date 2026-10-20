@@ -292,3 +292,37 @@ describe('diagramPreview — accessible name', () => {
         expect(preview.domNode!.getAttribute('aria-label')).toBeNull();
     });
 });
+
+describe('diagramPreview — overlapping renders', () => {
+    it('ignores an older render completing after the latest edit', async () => {
+        const pending: Array<(value: object) => void> = [];
+        loadRendererMock.mockImplementation(() => new Promise(resolve => pending.push(resolve)));
+        const { preview } = makePreview('');
+        const old = preview.update('old');
+        const latest = preview.update('latest');
+        const renderer = (label: string) => ({
+            initialize: () => {},
+            parse: async () => {},
+            render: async () => ({ svg: `<svg viewBox="0 0 10 10"><text>${label}</text></svg>` }),
+        });
+        pending[1](renderer('latest'));
+        await latest;
+        pending[0](renderer('old'));
+        await old;
+        expect(preview.domNode!.textContent).toBe('latest');
+    });
+
+    it('does not replace a valid preview with a stale error', async () => {
+        let rejectOld: (error: Error) => void = () => {};
+        loadRendererMock.mockImplementationOnce(() => new Promise((_resolve, reject) => {
+            rejectOld = reject;
+        }));
+        const { preview } = makePreview('');
+        const old = preview.update('old');
+        await preview.update('');
+        rejectOld(new Error('stale failure'));
+        await old;
+        expect(preview.domNode!.textContent).toContain('Empty Diagram');
+        expect(preview.domNode!.textContent).not.toContain('stale failure');
+    });
+});

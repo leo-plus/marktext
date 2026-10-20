@@ -445,6 +445,7 @@
         "githubAlerts": "GitHub-Hinweise",
         "isHtmlEnabled": "HTML-Rendering aktivieren",
         "softNewlineAsSpace": "Weiche Zeilenumbrüche als Leerzeichen behandeln",
+        "diagramPreviewMode": "Diagrammvorschaumodus",
         "sequenceTheme": "Sequenzdiagramm-Theme",
         "plantumlServer": "PlantUML-Server-URL",
         "theme": "Das in MarkText verwendete Theme auswählen",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "Diagrammvorschaumodus",
+          "sidebar": "Seitenvorschau (Standard)",
+          "bottom": "Vorschau unten"
+        },
         "title": "Diagramme",
         "sequenceTheme": {
           "title": "Sequenz-Design",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "Unerwarteter Rechtschreibprüfungsfehler"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "Diagrammvorschau",
+      "canvas": "Diagrammvorschau: Scrollen zum Zoomen, Ziehen zum Verschieben"
+    },
     "export": {
       "error": "Export-Fehler",
       "errorExporting": "Fehler beim Exportieren der {type}-Datei",

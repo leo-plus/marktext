@@ -321,6 +321,12 @@
     "type": "boolean",
     "default": false
   },
+  "diagramPreviewMode": {
+    "description": "Markdown--Diagram preview mode",
+    "type": "string",
+    "enum": ["sidebar", "bottom"],
+    "default": "sidebar"
+  },
   "sequenceTheme": {
     "description": "Markdown--Sequence diagram theme",
     "enum": ["hand", "simple"],

@@ -445,6 +445,7 @@
         "githubAlerts": "GitHub 알림",
         "isHtmlEnabled": "HTML 렌더링 활성화",
         "softNewlineAsSpace": "소프트 줄바꿈을 공백으로 처리",
+        "diagramPreviewMode": "다이어그램 미리보기 모드",
         "sequenceTheme": "시퀀스 다이어그램 테마",
         "plantumlServer": "PlantUML 서버 URL",
         "theme": "MarkText에서 사용할 테마 선택",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "다이어그램 미리보기 모드",
+          "sidebar": "측면 미리보기 (기본값)",
+          "bottom": "하단 미리보기"
+        },
         "title": "다이어그램",
         "sequenceTheme": {
           "title": "시퀀스 테마",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "예상치 못한 맞춤법 검사 오류"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "다이어그램 미리보기",
+      "canvas": "스크롤하여 확대/축소, 드래그하여 이동"
+    },
     "export": {
       "error": "내보내기 오류",
       "errorExporting": "{type} 파일 내보내기 오류",

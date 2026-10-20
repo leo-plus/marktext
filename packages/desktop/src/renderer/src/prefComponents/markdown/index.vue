@@ -142,6 +142,12 @@
       </template>
       <template #children>
         <cur-select
+          :description="t('preferences.markdown.diagrams.previewMode.title')"
+          :value="diagramPreviewMode"
+          :options="getDiagramPreviewModeOptions()"
+          :on-change="(value) => onSelectChange('diagramPreviewMode', value)"
+        />
+        <cur-select
           :description="t('preferences.markdown.diagrams.sequenceTheme.title')"
           :value="sequenceTheme"
           :options="getSequenceThemeOptions()"
@@ -190,7 +196,8 @@ import {
   getPreferHeadingStyleOptions,
   getListIndentationOptions,
   getFrontmatterTypeOptions,
-  getSequenceThemeOptions
+  getSequenceThemeOptions,
+  getDiagramPreviewModeOptions
 } from './config'
 import { storeToRefs } from 'pinia'
 
@@ -218,6 +225,7 @@ const {
   isHtmlEnabled,
   softNewlineAsSpace,
   sequenceTheme,
+  diagramPreviewMode,
   plantumlServer
 } = storeToRefs(preferenceStore)
 

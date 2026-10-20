@@ -90,6 +90,7 @@ export interface PreferencesState {
   isHtmlEnabled: boolean
   softNewlineAsSpace: boolean
   sequenceTheme: SequenceTheme | string
+  diagramPreviewMode: 'sidebar' | 'bottom'
   plantumlServer: string
 
   // ----- Theme -----
@@ -218,6 +219,7 @@ export const usePreferencesStore = defineStore('preferences', {
     isHtmlEnabled: true,
     softNewlineAsSpace: false,
     sequenceTheme: 'hand',
+    diagramPreviewMode: 'sidebar',
     plantumlServer: 'https://www.plantuml.com/plantuml',
 
     theme: 'light',

@@ -1,12 +1,20 @@
 <template>
   <div
     class="editor-wrapper"
-    :class="[{ typewriter: typewriter, focus: focus, source: sourceCode, 'viewer-open': viewerOpen }]"
+    :class="[
+      { typewriter, focus, source: sourceCode, 'viewer-open': viewerOpen, 'diagram-preview-open': !!activeDiagram }
+    ]"
     :dir="textDirection"
+    @click.capture="handleDiagramClick"
   >
     <div
       ref="editorRef"
       class="editor-component"
+    />
+    <diagram-preview
+      v-if="activeDiagram && !sourceCode"
+      :source="activeDiagram"
+      @close="dismissDiagram"
     />
     <media-viewer
       ref="mediaViewer"
@@ -103,6 +111,7 @@ import { exportStyledHTML, type HeaderFooterPart } from '@/util/exportHtml'
 import { applyCursor, isIndexCursor } from '@/util/cursor'
 import EditorSearch from '../search/index.vue'
 import MediaViewer from '../mediaViewer/index.vue'
+import DiagramPreview from './diagramPreview.vue'
 import bus from '@/bus'
 import { DEFAULT_EDITOR_FONT_FAMILY, DEFAULT_CODE_FONT_FAMILY } from '@/config'
 import notice from '@/services/notification'
@@ -137,6 +146,35 @@ import '@/assets/themes/codemirror/one-dark.css'
 import { type InputNumberInstance } from 'element-plus'
 
 const { t } = useI18n()
+const activeDiagram = shallowRef<HTMLElement | null>(null)
+let dismissedDiagram: HTMLElement | null = null
+
+const dismissDiagram = () => {
+  dismissedDiagram = activeDiagram.value
+  activeDiagram.value = null
+}
+
+const syncDiagramPreview = () => {
+  if (sourceCode.value || diagramPreviewMode.value !== 'sidebar') {
+    activeDiagram.value = null
+    return
+  }
+  const selection = editor.value?.getSelection()
+  const block = selection?.anchor.block.domNode?.closest('.mu-diagram-block')
+  const preview = block?.querySelector<HTMLElement>('.mu-diagram-preview') ?? null
+  if (preview !== dismissedDiagram) dismissedDiagram = null
+  activeDiagram.value = preview === dismissedDiagram ? null : preview
+}
+
+const handleDiagramClick = (event: MouseEvent) => {
+  if (sourceCode.value || diagramPreviewMode.value !== 'sidebar') return
+  if (!(event.target instanceof Element)) return
+  const block = event.target.closest('.mu-diagram-block')
+  if (!block || !editor.value?.domNode.contains(block)) return
+  dismissedDiagram = null
+  activeDiagram.value = block.querySelector<HTMLElement>('.mu-diagram-preview')
+}
+
 const STANDAR_Y = 320
 
 // `Muya.use(...)` appends to the static `Muya.plugins` array, and every
@@ -221,6 +259,7 @@ const {
   imageFolderPath,
   theme,
   sequenceTheme,
+  diagramPreviewMode,
   hideScrollbar,
   spellcheckerEnabled,
   spellcheckerNoUnderline,
@@ -544,6 +583,11 @@ watch(theme, (value, oldValue) => {
   }
 })
 
+watch(diagramPreviewMode, () => {
+  dismissedDiagram = null
+  syncDiagramPreview()
+})
+
 watch(sequenceTheme, (value, oldValue) => {
   if (value !== oldValue && editor.value) {
     editor.value.setOptions({ sequenceTheme: toSequenceTheme(value) }, true)
@@ -764,6 +808,10 @@ watch(spellcheckerLanguage, (value, oldValue) => {
 })
 
 watch(currentFile, (value, oldValue) => {
+  if (value?.id !== oldValue?.id) {
+    activeDiagram.value = null
+    dismissedDiagram = null
+  }
   if (value && value !== oldValue) {
     scrollToCursor(0)
     // Hide float tools if needed.
@@ -780,6 +828,8 @@ watch(
   sourceCode,
   (value, oldValue) => {
     if (value && value !== oldValue) {
+      activeDiagram.value = null
+      dismissedDiagram = null
       // The viewer holds a rendering of a document that is about to stop being
       // shown, and holds the editor behind it inert while it is up.
       mediaViewer.value?.close()
@@ -1527,6 +1577,7 @@ const setMarkdownToEditor = (payload: unknown) => {
     editorStore.UPDATE_TOC(editor.value.getTOC())
     // A freshly created/opened tab should be ready to type into.
     if (editorStore.TAKE_OPEN_INTENT(currentFile.value?.pathname) !== false) focusFreshEditor()
+    void nextTick(syncDiagramPreview)
   }
 }
 
@@ -1646,6 +1697,7 @@ const handleFileChange = (payload: unknown) => {
     applyCursor(editor.value, newCursor)
   }
 
+  void nextTick(syncDiagramPreview)
   if (typeof scrollTop === 'number') {
     container.style.visibility = 'hidden'
     container.style.pointerEvents = 'none'
@@ -1917,6 +1969,7 @@ onMounted(() => {
   // block AST), so we compute it here — mirroring the legacy engine's
   // `dispatchChange` payload.
   editor.value.on('json-change', () => {
+    void nextTick(syncDiagramPreview)
     // There is a chance that this event is fired AFTER the tab is switched. If we purely rely on this.currentFile later on
     // it can cause invalid updates. Hence, we need the id to identify changes as part of each tab
     if (!currentFile.value || !editor.value) return
@@ -2003,6 +2056,7 @@ onMounted(() => {
   })
 
   editor.value.on('selection-change', (changes: MuyaChange) => {
+    syncDiagramPreview()
     const y = (changes.cursorCoords?.y ?? null) as number | null
     if (y != null) {
       // Before the scrolling below: a 0-duration `animatedScrollTo` assigns
@@ -2047,6 +2101,7 @@ onMounted(() => {
   document.addEventListener('keyup', keyup)
 
   setEditorWidth(editorLineWidth.value)
+  void nextTick(syncDiagramPreview)
 })
 
 onBeforeUnmount(() => {
@@ -2172,6 +2227,22 @@ onBeforeUnmount(() => {
 .typewriter .editor-component {
   padding-top: calc(50vh - 136px);
   padding-bottom: calc(50vh - 54px);
+}
+
+.editor-wrapper.diagram-preview-open {
+  display: flex;
+  min-width: 0;
+}
+.diagram-preview-open > .editor-component {
+  flex: 1;
+  min-width: 0;
+}
+.diagram-preview-open .mu-container {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.mu-diagram-block.diagram-preview-source > .mu-diagram-preview {
+  display: none;
 }
 
 </style>

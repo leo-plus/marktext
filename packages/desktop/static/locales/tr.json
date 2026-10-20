@@ -444,6 +444,7 @@
         "githubAlerts": "GitHub uyarıları",
         "isHtmlEnabled": "HTML işlemeyi etkinleştir",
         "softNewlineAsSpace": "Yumuşak satır sonlarını boşluk olarak değerlendir",
+        "diagramPreviewMode": "Diyagram önizleme modu",
         "sequenceTheme": "Dizi diyagramı teması",
         "theme": "MarkText'te kullanılan temayı seçin",
         "followSystemTheme": "Sistem Temasını Takip Et",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "Diyagram önizleme modu",
+          "sidebar": "Yan önizleme (varsayılan)",
+          "bottom": "Alt önizleme"
+        },
         "title": "Diyagramlar",
         "sequenceTheme": {
           "title": "Dizi Teması",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "Beklenmeyen yazım denetleyici hatası"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "Diyagram önizlemesi",
+      "canvas": "Yakınlaştırmak için kaydırın, taşımak için sürükleyin"
+    },
     "export": {
       "error": "Dışa aktarma hatası",
       "errorExporting": "{type} dosyası dışa aktarılırken hata",

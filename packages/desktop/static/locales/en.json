@@ -444,6 +444,7 @@
         "githubAlerts": "GitHub Alerts",
         "isHtmlEnabled": "Enable HTML rendering",
         "softNewlineAsSpace": "Treat soft newlines as spaces",
+        "diagramPreviewMode": "Diagram preview mode",
         "sequenceTheme": "Sequence diagram theme",
         "plantumlServer": "PlantUML server URL",
         "theme": "Select the theme used in MarkText",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "Diagram preview mode",
+          "sidebar": "Side preview (default)",
+          "bottom": "Bottom preview"
+        },
         "title": "Diagrams",
         "sequenceTheme": {
           "title": "Sequence Theme",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "Unexpected spellchecker error"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "Diagram preview",
+      "canvas": "Diagram preview: scroll to zoom, drag to pan"
+    },
     "export": {
       "error": "Export error",
       "errorExporting": "Error exporting {type} file",

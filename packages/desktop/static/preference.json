@@ -63,6 +63,7 @@
   "githubAlerts": false,
   "isHtmlEnabled": true,
   "softNewlineAsSpace": false,
+  "diagramPreviewMode": "sidebar",
   "sequenceTheme": "hand",
   "plantumlServer": "https://www.plantuml.com/plantuml",
 

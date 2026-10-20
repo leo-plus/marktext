@@ -445,6 +445,7 @@
         "githubAlerts": "GitHub 提示區塊",
         "isHtmlEnabled": "啟用 HTML 轉譯",
         "softNewlineAsSpace": "將軟換行視為空格",
+        "diagramPreviewMode": "圖表預覽模式",
         "sequenceTheme": "序列圖主題",
         "plantumlServer": "PlantUML 伺服器 URL",
         "theme": "選擇 MarkText 中使用的主題",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "圖表預覽模式",
+          "sidebar": "側邊預覽（預設）",
+          "bottom": "底部預覽"
+        },
         "title": "圖表",
         "sequenceTheme": {
           "title": "序列主題",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "意外的拼字檢查錯誤"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "圖表預覽",
+      "canvas": "圖表預覽：滾輪縮放，拖動平移"
+    },
     "export": {
       "error": "匯出錯誤",
       "errorExporting": "匯出 {type} 檔案時發生錯誤",

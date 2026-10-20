@@ -444,6 +444,7 @@
         "githubAlerts": "GitHub-meldingen",
         "isHtmlEnabled": "HTML-weergave inschakelen",
         "softNewlineAsSpace": "Zachte regeleinden als spaties behandelen",
+        "diagramPreviewMode": "Diagramvoorbeeldmodus",
         "sequenceTheme": "Sequentiediagram thema",
         "plantumlServer": "PlantUML server-URL",
         "theme": "Selecteer het thema voor MarkText",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "Diagramvoorbeeldmodus",
+          "sidebar": "Zijvoorbeeld (standaard)",
+          "bottom": "Voorbeeld onderaan"
+        },
         "title": "Diagrammen",
         "sequenceTheme": {
           "title": "Sequentiethema",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "Onverwachte fout in spellingcontrole"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "Diagramvoorbeeld",
+      "canvas": "Scroll om te zoomen, sleep om te verplaatsen"
+    },
     "export": {
       "error": "Exportfout",
       "errorExporting": "Fout bij exporteren van {type}-bestand",

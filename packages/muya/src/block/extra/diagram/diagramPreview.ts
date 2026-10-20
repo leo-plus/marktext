@@ -11,6 +11,7 @@ const debug = logger('diagramPreview:');
 
 class DiagramPreview extends Parent {
     private _code: string;
+    private _renderVersion = 0;
     private _type: string;
     private _cancelFinalize: (() => void) | null = null;
     static override blockName = 'diagram-preview';
@@ -64,6 +65,7 @@ class DiagramPreview extends Parent {
 
     async update(code = this._code) {
         const { i18n } = this.muya;
+        const version = ++this._renderVersion;
         if (this._code !== code)
             this._code = code;
 
@@ -75,13 +77,16 @@ class DiagramPreview extends Parent {
         this.domNode!.removeAttribute('aria-label');
 
         if (code) {
-            this.domNode!.innerHTML = i18n.t('Loading...');
+            // A late async renderer must only write into its own generation.
+            const target = document.createElement('div');
+            target.textContent = i18n.t('Loading...');
+            this.domNode!.replaceChildren(target);
             const { mermaidTheme, vegaTheme, plantumlServer, sequenceTheme } = this.muya.options;
             const { _type: type } = this;
 
             try {
                 await renderDiagram({
-                    target: this.domNode!,
+                    target,
                     code,
                     type,
                     mermaidTheme,
@@ -89,9 +94,13 @@ class DiagramPreview extends Parent {
                     plantumlServer,
                     sequenceTheme,
                 });
+                if (version !== this._renderVersion)
+                    return;
                 this._cancelFinalize = finalizeRenderedDiagram(this.domNode!, i18n.t('Diagram'));
             }
             catch (error) {
+                if (version !== this._renderVersion)
+                    return;
                 const detail
                     = error instanceof Error ? error.message : String(error);
                 debug.error(`render ${type} diagram failed: ${detail}`);

@@ -445,6 +445,7 @@
         "githubAlerts": "GitHub アラート",
         "isHtmlEnabled": "HTML レンダリングを有効にする",
         "softNewlineAsSpace": "ソフト改行をスペースとして扱う",
+        "diagramPreviewMode": "図のプレビューモード",
         "sequenceTheme": "シーケンス図のテーマ",
         "plantumlServer": "PlantUML サーバーの URL",
         "theme": "MarkText で使用するテーマの選択",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "図のプレビューモード",
+          "sidebar": "サイドプレビュー（デフォルト）",
+          "bottom": "下部プレビュー"
+        },
         "title": "図表",
         "sequenceTheme": {
           "title": "シーケンステーマ",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "予期しないスペルチェックエラー"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "図のプレビュー",
+      "canvas": "図のプレビュー：スクロールで拡大、ドラッグで移動"
+    },
     "export": {
       "error": "エクスポートエラー",
       "errorExporting": "{type} ファイルのエクスポートエラー",

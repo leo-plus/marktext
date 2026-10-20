@@ -445,6 +445,7 @@
         "githubAlerts": "Alertas do GitHub",
         "isHtmlEnabled": "Habilitar renderização HTML",
         "softNewlineAsSpace": "Tratar quebras de linha suaves como espaços",
+        "diagramPreviewMode": "Modo de prévia do diagrama",
         "sequenceTheme": "Tema do diagrama de sequência",
         "plantumlServer": "URL do servidor PlantUML",
         "theme": "Selecionar o tema usado no MarkText",
@@ -693,6 +694,11 @@
         }
       },
       "diagrams": {
+        "previewMode": {
+          "title": "Modo de prévia do diagrama",
+          "sidebar": "Prévia lateral (padrão)",
+          "bottom": "Prévia inferior"
+        },
         "title": "Diagramas",
         "sequenceTheme": {
           "title": "Tema de Sequência",
@@ -1000,6 +1006,10 @@
     "unexpectedError": "Erro inesperado do corretor ortográfico"
   },
   "editor": {
+    "diagramPreview": {
+      "title": "Prévia do diagrama",
+      "canvas": "Role para ampliar, arraste para mover"
+    },
     "export": {
       "error": "Erro de exportação",
       "errorExporting": "Erro ao exportar arquivo {type}",
